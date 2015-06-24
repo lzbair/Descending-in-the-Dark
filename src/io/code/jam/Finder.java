@@ -11,22 +11,33 @@ import java.nio.file.Files;
 public class Finder {
 
 	public static void main(String[] args) throws IOException {
-		BufferedReader reader = Files.newBufferedReader(
-				FileSystems.getDefault().getPath("resources/D-small-practice.in"), 
-				Charset.defaultCharset());
+		BufferedReader reader = Files.newBufferedReader(FileSystems
+				.getDefault().getPath("resources/D-small-practice.in"), Charset
+				.defaultCharset());
 		int cases = parseInt(reader.readLine());
 
-		for (int i = 0; i < cases; i++) {
+		for (int i = 1; i <= cases; i++) {
+			System.out.println("Case #" + i + ":");
 			String[] layout = reader.readLine().split("\\s");
 			int rows = parseInt(layout[0]);
 			int columns = parseInt(layout[1]);
-			
-			Mountain mountain = new Mountain(new Square[rows][columns]);
-			while (rows > 0) {
-				String[] row  = reader.readLine().split("\\s");
-				System.out.println(row);
-				rows--;
+
+			Square[][] squares = new Square[rows][columns];
+			for (int j = 0; j < rows; j++) {
+				char[] row = reader.readLine().toCharArray();
+				for (int k = 0; k < columns; k++) {
+					squares[j][k] = new Square(row[k]);
+				}
 			}
+			
+			for (int j = 0; j < rows; j++) {
+				StringBuilder printer = new StringBuilder();
+				for (int k = 0; k < columns; k++) {
+					printer.append(squares[j][k]);
+				}
+				System.out.println(printer.toString());
+			}
+			//Mountain mountain = new Mountain(squares);
 		}
 	}
 
